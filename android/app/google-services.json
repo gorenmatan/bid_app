@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "505928157928",
+    "firebase_url": "https://bidapp-2c7f9.firebaseio.com",
+    "project_id": "bidapp-2c7f9",
+    "storage_bucket": "bidapp-2c7f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505928157928:android:a105e6413a054286aad75d",
+        "android_client_info": {
+          "package_name": "com.bidapp.flutterbidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "505928157928-g34qm3a41h9joc4esqom97besdrl301b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bidapp.flutterbidapp",
+            "certificate_hash": "c7d4b0c48675fa0b67f26db2e942b7bfa1cf0993"
+          }
+        },
+        {
+          "client_id": "505928157928-uco98qe8ejrojjqmbenb5pcuv6stgh3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlTjxewi5q1Qz4dmYB9I-k1RWPDEqSokI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "505928157928-uco98qe8ejrojjqmbenb5pcuv6stgh3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
