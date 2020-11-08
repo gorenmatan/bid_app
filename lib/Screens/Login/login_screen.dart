@@ -27,29 +27,28 @@ class _LoginScreenState extends State<LoginScreen> {
         timeout: Duration(seconds: 10),
         verificationCompleted: (AuthCredential credential) async {
           Navigator.of(context).pop();
-
-
-          UserCredential result = await _auth.signInWithCredential(credential);
-          FirebaseUser user = result.user;
-
+          User user  = (await _auth.signInWithCredential(credential)).user;
           if (user != null) {
             try {
-              await Firestore.instance.collection('Users').document(user.uid).get().then((doc) {
-                if (doc.exists){
+              await FirebaseFirestore.instance
+                  .collection('Users')
+                  .doc(user.uid)
+                  .get()
+                  .then((doc) {
+                if (doc.exists) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => HomeScreen(
-                            user: user,
-                          )));
-                }
-                else{
+                                //user: user,
+                              )));
+                } else {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => SignUpIntroScreen(
-                            //user: user,
-                          )));
+                                user: user,
+                              )));
                 }
               });
             } catch (e) {
@@ -87,19 +86,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                         final code = _codeController.text.trim();
                         AuthCredential credential =
-                            PhoneAuthProvider.getCredential(
+                            PhoneAuthProvider.credential(
                                 verificationId: verificationId, smsCode: code);
 
-                        UserCredential result = await _auth.signInWithCredential(credential);
+                        UserCredential result =
+                            await _auth.signInWithCredential(credential);
 
-                        FirebaseUser user = result.user;
+                        User user = result.user;
 
                         if (user != null) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SignUpIntroScreen(
-                                        //user: user,
+                                      user: user,
                                       )));
                         } else {
                           print("Error confirm");
@@ -110,7 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 );
               });
         },
-        codeAutoRetrievalTimeout: null);
+        codeAutoRetrievalTimeout: (String verificationId) {
+          print("Code Time Out");
+        });
   }
 
   Widget showAlert() {
@@ -151,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  bool validPhoneNumber(String phone){
+  bool validPhoneNumber(String phone) {
     String patttern = r'(^(?:0?[689])?[0-9]{8}$)';
     RegExp regExp = new RegExp(patttern);
     if (!regExp.hasMatch(phone)) {
@@ -177,9 +179,13 @@ class _LoginScreenState extends State<LoginScreen> {
               width: size.width,
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: size.height*0.05,),
+                  SizedBox(
+                    height: size.height * 0.05,
+                  ),
                   showAlert(),
-                  SizedBox(height: size.height*0.05,),
+                  SizedBox(
+                    height: size.height * 0.05,
+                  ),
                   Text(
                     "BID APP",
                     style: TextStyle(
@@ -187,7 +193,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: 20.0,
                     ),
                   ),
-                  SizedBox(height: 10.0,),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Image.asset(
                     "assets/images/diamond.png",
                     height: 120.0,
@@ -211,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: size.width * 0.88,
                     height: 50.0,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(90.0),
                       color: Colors.white,
                       border: Border.all(
                           color: !is_valid ? Colors.red : Colors.black38),
@@ -265,30 +273,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         : null,
                   ),
-                  RoundedButton(
-                    text: "ENTER",
-                    press: () {
-                      final phone = _phoneController.text.trim();
-                      if (phone.isEmpty) {
-                        setState(() {
-                          is_valid = false;
-                        });
-                      }
-                      /*else if(!validPhoneNumber(phone)){
-                        setState(() {
-                          is_valid = true;
-                          _error = 'Please enter valid mobile number';
-                        });
-                      }*/
-                      else {
-                        loginUser('+972$phone', context);
-                        setState(() {
-                          is_valid = true;
-                          _error = null;
-                        });
-                      }
-                    },
-                    color: Colors.deepOrangeAccent,
+                  Container(
+                    width:size.width*0.88,
+                    child: RoundedButton(
+                      text: "ENTER",
+                      radius: 90.0,
+                      press: () {
+                        final phone = _phoneController.text.trim();
+                        if (phone.isEmpty) {
+                          setState(() {
+                            is_valid = false;
+                          });
+                        }
+                        /*else if(!validPhoneNumber(phone)){
+                          setState(() {
+                            is_valid = true;
+                            _error = 'Please enter valid mobile number';
+                          });
+                        }*/
+                        else {
+                          loginUser('+972$phone', context);
+                          setState(() {
+                            is_valid = true;
+                            _error = null;
+                          });
+                        }
+                      },
+                      color: Colors.deepOrangeAccent,
+                    ),
                   ),
                 ],
               ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterbidapp/constants.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
@@ -20,8 +18,6 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(top: 0),
-      width: size.width * 0.88,
       height: 50.0,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),

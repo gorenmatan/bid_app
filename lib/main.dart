@@ -1,9 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import "package:flutterbidapp/Screens/Login/login_screen.dart";
-import 'package:flutterbidapp/constants.dart';
-import 'package:flutterbidapp/Screens/Signup/signup_intro_screen.dart';
+import 'package:flutterbidapp/home.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -13,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Bid App',
 
-      home: SignUpIntroScreen(),
+      home: HomeScreen(),
     );
   }
 }
