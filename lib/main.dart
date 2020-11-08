@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterbidapp/Map.dart';
 import "package:flutterbidapp/Screens/Login/login_screen.dart";
 import 'package:flutterbidapp/home.dart';
 
